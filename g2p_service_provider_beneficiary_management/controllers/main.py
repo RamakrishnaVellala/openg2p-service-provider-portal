@@ -4,16 +4,7 @@ import logging
 from odoo import http
 from odoo.http import request
 
-from odoo.addons.g2p_service_provider_portal_base.controllers.main import ServiceProviderBaseContorller
-
 _logger = logging.getLogger(__name__)
-
-
-class ServiceProviderBaseContorller(ServiceProviderBaseContorller):
-    @http.route(["/serviceprovider/home"], type="http", auth="user", website=True)
-    def portal_home(self, **kwargs):
-        self.check_roles("SERVICEPROVIDER")
-        return request.redirect("/serviceprovider/group")
 
 
 class G2pServiceProviderBenificiaryManagement(http.Controller):
@@ -42,6 +33,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
     )
     def group_create(self, **kw):
         gender = request.env["gender.type"].sudo().search([])
+
         return request.render(
             "g2p_service_provider_benificiary_management.group_create_form_template",
             {"gender": gender},
@@ -57,7 +49,9 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
     def group_create_submit(self, **kw):
         try:
             beneficiary_id = int(kw.get("group_id"))
+
             beneficiary = request.env["res.partner"].sudo().browse(beneficiary_id)
+
             if not beneficiary:
                 return request.render(
                     "g2p_service_provider_benificiary_management.error_template",
@@ -90,6 +84,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
         try:
             gender = request.env["gender.type"].sudo().search([])
             beneficiary = request.env["res.partner"].sudo().browse(_id)
+
             if not beneficiary:
                 return request.render(
                     "g2p_service_provider_benificiary_management.error_template",
@@ -284,7 +279,6 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
     def update_member_submit(self, **kw):
         try:
             member = request.env["res.partner"].sudo().browse(int(kw.get("member_id")))
-
             res = dict()
             if member:
                 # birthdate = datetime.strptime(kw["birthdate"], "%Y-%m-%d").date()
@@ -317,6 +311,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
                             "active": membership.active,
                         }
                     )
+
                 res["member_list"] = member_list
                 return json.dumps(res)
 
@@ -324,7 +319,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
             _logger.error("Error occurred during member submit: %s", e)
             return json.dumps({"error": "Failed to update member details"})
 
-    ############### controller for individula benficary creation ################
+    ############### Controller for Individual Benificiary Creation ################
 
     @http.route("/serviceprovider/individual", type="http", auth="user", website=True)
     def individual_list(self, **kw):

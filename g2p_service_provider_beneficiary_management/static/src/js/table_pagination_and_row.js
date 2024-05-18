@@ -42,10 +42,10 @@ function updatePaginationButtons() {
 
 function applySearchFilter(searchValue) {
     filteredRows = allRows.filter((row) => {
-        const cellValue1 = row.cells[1].innerText.toLowerCase(); // Household Name
-        const cellValue2 = row.cells[2].innerText.toLowerCase(); // Region
-        const cellValue3 = row.cells[3].innerText.toLowerCase(); // Kebele
-        const cellValue4 = row.cells[6].innerText.toLowerCase(); // Enumerator
+        const cellValue1 = row.cells[1].innerText.toLowerCase();
+        const cellValue2 = row.cells[2].innerText.toLowerCase();
+        const cellValue3 = row.cells[3].innerText.toLowerCase();
+        const cellValue4 = row.cells[6].innerText.toLowerCase();
         return (
             cellValue1.includes(searchValue) ||
             cellValue2.includes(searchValue) ||

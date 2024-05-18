@@ -311,15 +311,10 @@
                                                                 <span class="s_website_form_label_content">
                                                                     Gender</span>
                                                             </label>
-                                                            <span class="s_website_form_mark">
-                                                                                            *</span>
+                                                            <span class="s_website_form_mark">*</span>
                                                             <div class="row">
                                                                 <div class="col">
-                                                                    <select
-                                                                        class="form-select"
-                                                                        name="gender"
-                                                                        required="required"
-                                                                    >
+                                                                    <select class="form-select" name="gender">
                                                                         <option value=" ">Select</option>
                                                                         <t t-foreach="gender" t-as="option">
                                                                             <option
@@ -366,7 +361,7 @@
                                                 <button
                                                     type="button"
                                                     class="btn btn-outline-primary"
-                                                    onclick="location.href = '/selfservice/home';"
+                                                    onclick="location.href = '/serviceprovider/home';"
                                                 >
                                                     Cancel
                                                 </button>
@@ -624,7 +619,7 @@
                                                 <button
                                                     type="button"
                                                     class="btn btn-outline-primary"
-                                                    onclick="location.href = '/selfservice/home';"
+                                                    onclick="location.href = '/serviceprovider/home';"
                                                 >
                                                     Cancel
                                                 </button>
