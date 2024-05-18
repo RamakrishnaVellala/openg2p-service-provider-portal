@@ -97,14 +97,14 @@
                                                 <div class="status-icon">
                                                     <t t-if="group['active']">
                                                         <img
-                                                            src="/g2p_service_provider_benificiary_management/static/src/img/active_logo.png"
+                                                            src="/g2p_service_provider_beneficiary_management/static/src/img/active_logo.png"
                                                             class="active-logo"
                                                             alt="Active"
                                                         />
                                                     </t>
                                                     <t t-else="">
                                                         <img
-                                                            src="/g2p_service_provider_benificiary_management/static/src/img/inactive_logo.png"
+                                                            src="/g2p_service_provider_beneficiary_management/static/src/img/inactive_logo.png"
                                                             class="inactive-logo"
                                                             alt="Inactive"
                                                         />
@@ -128,7 +128,7 @@
                         </div>
                         <script
                             type="text/javascript"
-                            src="/g2p_service_provider_benificiary_management/static/src/js/table_pagination_and_row.js"
+                            src="/g2p_service_provider_beneficiary_management/static/src/js/table_pagination_and_row.js"
                         />
 
                     </div>
@@ -409,7 +409,7 @@
                                                     <t t-else="">
                                                         <div class="no_list">
                                                             <img
-                                                                src="/g2p_service_provider_benificiary_management/static/src/img/no_mem.png"
+                                                                src="/g2p_service_provider_beneficiary_management/static/src/img/no_mem.png"
                                                             />
                                                             <div>
                                                                 <p>No members!</p>
@@ -732,7 +732,7 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" />
             <script
                 type="text/javascript"
-                src="/g2p_service_provider_benificiary_management/static/src/js/member_form.js"
+                src="/g2p_service_provider_beneficiary_management/static/src/js/member_form.js"
             />
 
         </t>
@@ -981,7 +981,7 @@
 
                                                     <div class="no_list">
                                                         <img
-                                                            src="/g2p_service_provider_benificiary_management/static/src/img/no_mem.png"
+                                                            src="/g2p_service_provider_beneficiary_management/static/src/img/no_mem.png"
                                                         />
                                                         <div>
                                                             <p>No members!</p>
@@ -1278,7 +1278,7 @@
                                             />
                                             <script
                                                 type="text/javascript"
-                                                src="/g2p_service_provider_benificiary_management/static/src/js/member_form.js"
+                                                src="/g2p_service_provider_beneficiary_management/static/src/js/member_form.js"
                                             />
 
                                         </div>
