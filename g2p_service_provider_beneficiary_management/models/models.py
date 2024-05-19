@@ -1,9 +1,9 @@
 # from odoo import models, fields, api
 
 
-# class g2p_service_provider_benificiary_management(models.Model):
-#     _name = 'g2p_service_provider_benificiary_management.g2p_service_provider_benificiary_management'
-#     _description = 'g2p_service_provider_benificiary_management.g2p_service_provider_benificiary_management'
+# class g2p_service_provider_beneficiary_management(models.Model):
+#     _name = 'g2p_service_provider_beneficiary_management.g2p_service_provider_beneficiary_management'
+#     _description = 'g2p_service_provider_beneficiary_management.g2p_service_provider_beneficiary_management'
 
 #     name = fields.Char()
 #     value = fields.Integer()

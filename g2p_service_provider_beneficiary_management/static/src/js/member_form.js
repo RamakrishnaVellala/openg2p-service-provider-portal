@@ -13,13 +13,13 @@ function validateForm(isCreateForm) {
     var isValid = true;
 
     requiredFields.forEach(function (field) {
-        if (!field.value.trim()) {
+        var existingErrorMessage = field.parentNode.querySelector(".error-message");
+        if (!field.value.trim() && field.offsetWidth > 0 && field.offsetHeight > 0) {
             var errorMessage = document.createElement("span");
             errorMessage.className = "error-message";
             errorMessage.textContent = "This field is required";
             errorMessage.style.color = "red";
 
-            var existingErrorMessage = field.parentNode.querySelector(".error-message");
             if (existingErrorMessage) {
                 field.parentNode.replaceChild(errorMessage, existingErrorMessage);
             } else {
@@ -29,7 +29,6 @@ function validateForm(isCreateForm) {
             field.style.border = "1px solid red";
             isValid = false;
         } else {
-            var existingErrorMessage = field.parentNode.querySelector(".error-message");
             if (existingErrorMessage) {
                 existingErrorMessage.parentNode.removeChild(existingErrorMessage);
             }
@@ -60,22 +59,11 @@ function hideToast() {
 function resetFormFields() {
     $("#memberDetailModal input, #memberDetailModal select").val("");
 }
-// Serial no
-const alltable = document.getElementById("memberlist");
-const tbody = alltable.getElementsByTagName("tbody");
-const totalRow = tbody[0].children.length;
-
-function addTableSrNo() {
-    for (let i = 0; i < totalRow; i++) {
-        tbody[0].children[i].firstElementChild.innerText = i + 1;
-    }
-}
-// END serial no
 
 // Replace button
 $('[data-bs-target="#memberDetailModal"]').on("click", function () {
     $("#update-member-btn").replaceWith(
-        '<button  id="member_submit" type="button" class="btn btn-primary create-new">Add</button>'
+        '<div id="member_submit" type="button" class="btn btn-primary create-new">Add</div>'
     );
     resetFormFields();
 });
@@ -83,11 +71,9 @@ $('[data-bs-target="#memberDetailModal"]').on("click", function () {
 // Add button
 $(document).on("click", "#member_submit", function () {
     var group = $("input[name='group_id']").val();
-    // Head
     var Householdname = $("#name").val();
     var Householddob = $("#birthdate").val();
     var Householgender = $("select[name='gender']").val();
-    // #member
     var firstName = $("#memberDetailModal #given_name").val();
     var middleName = $("#memberDetailModal #addl_name").val();
     var lastName = $("#memberDetailModal #family_name").val();
@@ -102,7 +88,6 @@ $(document).on("click", "#member_submit", function () {
     if (!firstName || !lastName || !gender || !dob) {
         console.log("empty");
         isValid = false;
-        // Highlight empty required fields with a red border color
         $("#memberDetailModal .form-control[required], #memberDetailModal .form-select[required]").each(
             function () {
                 if (!$(this).val()) {
@@ -143,16 +128,12 @@ $(document).on("click", "#member_submit", function () {
                     modal.modal("hide");
                     console.log("member_list[0].group_id :", member_list[0].group_id);
                     $("input[name='group_id']").val(member_list[0].group_id);
-                    // Hide no_list
                     $(".no_list").css("display", "none");
 
-                    // Get the table body
                     var tableBody = $("#memberlist tbody");
-                    // Clear existing rows
                     tableBody.empty();
                     $(".old-list").css("display", "none");
 
-                    // Iterate over the member list and append rows to the table
                     member_list.forEach(function (member, index) {
                         $(".mem-list").css("display", "block");
                         var serialNumber = index + 1;
@@ -179,7 +160,7 @@ $(document).on("click", "#member_submit", function () {
                             "</div>" +
                             "</td>" +
                             "<td>" +
-                            '<button class="btn btn-icon rounded-0" type="button" id="mem-update" store="' +
+                            '<button class="btn btn-icon rounded-0" id="mem-update" store="' +
                             member.id +
                             '" title="Edit">' +
                             '<i class="fa fa-pencil"></i>' +
@@ -205,7 +186,6 @@ $(document).on("click", "#member_submit", function () {
 $(document).on("click", "#mem-update", function () {
     var memberId = $(this).attr("store");
     var modal = $("#memberDetailModal");
-
     $.ajax({
         url: "/serviceprovider/member/update/",
         method: "POST",
@@ -214,22 +194,18 @@ $(document).on("click", "#mem-update", function () {
         },
         dataType: "json",
         success: function (response) {
-            // Populate modal fields with member details
             modal.find("#given_name").val(response.given_name);
             modal.find("#addl_name").val(response.addl_name);
             modal.find("#family_name").val(response.family_name);
             modal.find("#birthdate").val(response.dob);
             modal.find('select[name="gender"]').val(response.gender);
 
-            // Replace button
             $("#member_submit").replaceWith(
-                '<button type="button" id="update-member-btn" store="' +
-                    response.id +
-                    '" class="btn btn-primary create-new">Update</button>'
+                '<div id="update-member-btn" store="' +
+                    memberId +
+                    '" class="btn btn-primary create-new">Update</div>'
             );
-            $("#update-member-btn").attr("store", response.id);
 
-            // Show the modal
             modal.modal("show");
         },
         error: function (error) {
@@ -239,12 +215,10 @@ $(document).on("click", "#mem-update", function () {
     });
 });
 
-// Update member details when the update button is clicked
 $(document).on("click", "#update-member-btn", function () {
     // Get the member ID
     var memberId = $(this).attr("store");
 
-    // Get updated member details from the modal fields
     var group = $("input[name='group_id']").val();
     var firstName = $("#memberDetailModal #given_name").val();
     var middleName = $("#memberDetailModal #addl_name").val();
@@ -257,7 +231,6 @@ $(document).on("click", "#update-member-btn", function () {
 
     if (!firstName || !lastName || !gender) {
         isValid = false;
-        // Highlight empty required fields with a red border color
         $("#memberDetailModal .form-control, #memberDetailModal .form-select").each(function () {
             if (!$(this).val().trim()) {
                 $(this).addClass("is-invalid");
@@ -284,14 +257,15 @@ $(document).on("click", "#update-member-btn", function () {
         },
         dataType: "json",
         success: function (response) {
-            // Check if member_list exists in the response
             if (response && response.member_list) {
                 var member_list = response.member_list;
-
                 $("#memberDetailModal").modal("hide");
 
-                member_list.forEach(function (member) {
-                    var serialNumber = 0;
+                var tableBody = $("#memberlist tbody");
+                tableBody.empty();
+
+                member_list.forEach(function (member, index) {
+                    var serialNumber = index + 1;
                     var newRowHtml =
                         "<tr>" +
                         "<td>" +
@@ -315,19 +289,15 @@ $(document).on("click", "#update-member-btn", function () {
                         "</div>" +
                         "</td>" +
                         "<td>" +
-                        '<button class="btn btn-icon rounded-0" type="button" id="mem-update" store="' +
+                        '<button class="btn btn-icon rounded-0" id="mem-update" store="' +
                         member.id +
                         '" title="Edit">' +
                         '<i class="fa fa-pencil"></i>' +
                         "</button>" +
                         "</td>" +
                         "</tr>";
-
-                    $("#mem-update[store='" + memberId + "']")
-                        .closest("tr")
-                        .replaceWith(newRowHtml);
+                    tableBody.append(newRowHtml);
                 });
-                addTableSrNo();
             } else {
                 console.error("FINAL Member list not found in the response.");
             }

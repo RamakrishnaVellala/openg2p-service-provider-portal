@@ -4,19 +4,10 @@ import logging
 from odoo import http
 from odoo.http import request
 
-from odoo.addons.g2p_service_provider_portal_base.controllers.main import ServiceProviderBaseContorller
-
 _logger = logging.getLogger(__name__)
 
 
-class ServiceProviderBaseContorller(ServiceProviderBaseContorller):
-    @http.route(["/serviceprovider/home"], type="http", auth="user", website=True)
-    def portal_home(self, **kwargs):
-        self.check_roles("SERVICEPROVIDER")
-        return request.redirect("/serviceprovider/group")
-
-
-class G2pServiceProviderBenificiaryManagement(http.Controller):
+class G2PServiceProviderBeneficiaryManagement(http.Controller):
     @http.route("/serviceprovider/group", type="http", auth="user", website=True)
     def group_list(self, **kw):
         group = (
@@ -31,7 +22,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
             )
         )
 
-        return request.render("g2p_service_provider_benificiary_management.group_list", {"groups": group})
+        return request.render("g2p_service_provider_beneficiary_management.group_list", {"groups": group})
 
     @http.route(
         ["/serviceprovider/group/create/"],
@@ -42,8 +33,9 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
     )
     def group_create(self, **kw):
         gender = request.env["gender.type"].sudo().search([])
+
         return request.render(
-            "g2p_service_provider_benificiary_management.group_create_form_template",
+            "g2p_service_provider_beneficiary_management.group_create_form_template",
             {"gender": gender},
         )
 
@@ -57,10 +49,12 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
     def group_create_submit(self, **kw):
         try:
             beneficiary_id = int(kw.get("group_id"))
+
             beneficiary = request.env["res.partner"].sudo().browse(beneficiary_id)
+
             if not beneficiary:
                 return request.render(
-                    "g2p_service_provider_benificiary_management.error_template",
+                    "g2p_service_provider_beneficiary_management.error_template",
                     {"error_message": "Beneficiary not found."},
                 )
 
@@ -75,7 +69,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
         except Exception as e:
             _logger.error("Error occurred%s" % e)
             return request.render(
-                "g2p_service_provider_benificiary_management.error_template",
+                "g2p_service_provider_beneficiary_management.error_template",
                 {"error_message": "An error occurred. Please try again later."},
             )
 
@@ -90,14 +84,15 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
         try:
             gender = request.env["gender.type"].sudo().search([])
             beneficiary = request.env["res.partner"].sudo().browse(_id)
+
             if not beneficiary:
                 return request.render(
-                    "g2p_service_provider_benificiary_management.error_template",
+                    "g2p_service_provider_beneficiary_management.error_template",
                     {"error_message": "Beneficiary not found."},
                 )
 
             return request.render(
-                "g2p_service_provider_benificiary_management.group_update_form_template",
+                "g2p_service_provider_beneficiary_management.group_update_form_template",
                 {
                     "beneficiary": beneficiary,
                     "gender": gender,
@@ -106,7 +101,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
             )
         except Exception:
             return request.render(
-                "g2p_service_provider_benificiary_management.error_template",
+                "g2p_service_provider_beneficiary_management.error_template",
                 {"error_message": "Invalid URL."},
             )
 
@@ -124,7 +119,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
             beneficiary = request.env["res.partner"].sudo().browse(beneficiary_id)
             if not beneficiary:
                 return request.render(
-                    "g2p_service_provider_benificiary_management.error_template",
+                    "g2p_service_provider_beneficiary_management.error_template",
                     {"error_message": "Beneficiary not found."},
                 )
             # TODO: Relationship logic need to build later
@@ -142,7 +137,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
         except Exception as e:
             _logger.error("Error occurred%s" % e)
             return request.render(
-                "g2p_service_provider_benificiary_management.error_template",
+                "g2p_service_provider_beneficiary_management.error_template",
                 {"error_message": "An error occurred. Please try again later."},
             )
 
@@ -284,7 +279,6 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
     def update_member_submit(self, **kw):
         try:
             member = request.env["res.partner"].sudo().browse(int(kw.get("member_id")))
-
             res = dict()
             if member:
                 # birthdate = datetime.strptime(kw["birthdate"], "%Y-%m-%d").date()
@@ -317,6 +311,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
                             "active": membership.active,
                         }
                     )
+
                 res["member_list"] = member_list
                 return json.dumps(res)
 
@@ -324,7 +319,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
             _logger.error("Error occurred during member submit: %s", e)
             return json.dumps({"error": "Failed to update member details"})
 
-    ############### controller for individula benficary creation ################
+    ############### Controller for Individual Benificiary Creation ################
 
     @http.route("/serviceprovider/individual", type="http", auth="user", website=True)
     def individual_list(self, **kw):
@@ -340,7 +335,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
             )
         )
         return request.render(
-            "g2p_service_provider_benificiary_management.individual_list", {"individual": individual}
+            "g2p_service_provider_beneficiary_management.individual_list", {"individual": individual}
         )
 
     @http.route(
@@ -353,7 +348,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
     def individual_registrar_create(self, **kw):
         gender = request.env["gender.type"].sudo().search([])
         return request.render(
-            "g2p_service_provider_benificiary_management.individual_registrant_form_template",
+            "g2p_service_provider_beneficiary_management.individual_registrant_form_template",
             {"gender": gender},
         )
 
@@ -396,7 +391,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
         except Exception as e:
             _logger.error("Error occurred%s" % e)
             return request.render(
-                "g2p_service_provider_benificiary_management.error_template",
+                "g2p_service_provider_beneficiary_management.error_template",
                 {"error_message": "An error occurred. Please try again later."},
             )
 
@@ -413,12 +408,12 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
             beneficiary = request.env["res.partner"].sudo().browse(_id)
             if not beneficiary:
                 return request.render(
-                    "g2p_service_provider_benificiary_management.error_template",
+                    "g2p_service_provider_beneficiary_management.error_template",
                     {"error_message": "Beneficiary not found."},
                 )
 
             return request.render(
-                "g2p_service_provider_benificiary_management.individual_update_form_template",
+                "g2p_service_provider_beneficiary_management.individual_update_form_template",
                 {
                     "beneficiary": beneficiary,
                     "gender": gender,
@@ -426,7 +421,7 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
             )
         except Exception:
             return request.render(
-                "g2p_service_provider_benificiary_management.error_template",
+                "g2p_service_provider_beneficiary_management.error_template",
                 {"error_message": "Invalid URL."},
             )
 
@@ -469,6 +464,6 @@ class G2pServiceProviderBenificiaryManagement(http.Controller):
         except Exception as e:
             _logger.error("Error occurred%s" % e)
             return request.render(
-                "g2p_service_provider_benificiary_management.error_template",
+                "g2p_service_provider_beneficiary_management.error_template",
                 {"error_message": "An error occurred. Please try again later."},
             )

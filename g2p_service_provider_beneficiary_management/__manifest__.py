@@ -21,7 +21,7 @@
     ],
     "assets": {
         "web.assets_frontend": [
-            "g2p_service_provider_benificiary_management/static/src/css/style.css",
+            "g2p_service_provider_beneficiary_management/static/src/css/style.css",
         ],
         "web.assets_common": [],
         "website.assets_wysiwyg": [],
