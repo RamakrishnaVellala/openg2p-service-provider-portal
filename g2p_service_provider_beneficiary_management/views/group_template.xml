@@ -647,7 +647,7 @@
                                                                                 >
                                                                                     <option value="">
                                                                                         select</option>
-                                                                                    <option
+                                                                                        <option
                                                                                         value="Household head"
                                                                                     >Household
                                                                                         head</option>
@@ -1258,7 +1258,7 @@
                                                 <button
                                                     type="button"
                                                     class="btn btn-outline-primary"
-                                                    onclick="location.href = '/selfservice/home';"
+                                                    onclick="location.href = '/serviceprovider/home';"
                                                 >
                                                     Cancel
                                                 </button>
