@@ -28,11 +28,11 @@ function validateForm(isCreateForm) {
 
             field.style.border = "1px solid red";
             isValid = false;
-            const collapseElement = field.closest('.collapse');
+            const collapseElement = field.closest(".collapse");
             if (collapseElement) {
                 const accordionButton = document.querySelector(`[data-bs-target="#${collapseElement.id}"]`);
                 if (accordionButton) {
-                            accordionButton.click();
+                    accordionButton.click();
                 }
             }
         } else {
@@ -42,7 +42,6 @@ function validateForm(isCreateForm) {
             field.style.border = "";
         }
     });
-
 
     if (isValid && isCreateForm) {
         document.getElementById("creategroupForm").submit();
