@@ -28,9 +28,9 @@ function validateForm(isCreateForm) {
 
             field.style.border = "1px solid red";
             isValid = false;
-            let collapseElement = field.closest('.collapse');
+            const collapseElement = field.closest('.collapse');
             if (collapseElement) {
-                let accordionButton = document.querySelector(`[data-bs-target="#${collapseElement.id}"]`);
+                const accordionButton = document.querySelector(`[data-bs-target="#${collapseElement.id}"]`);
                 if (accordionButton) {
                             accordionButton.click();
                 }
