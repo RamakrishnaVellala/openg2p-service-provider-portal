@@ -645,18 +645,22 @@
                                                                                     name="relationship"
                                                                                     class="form-select"
                                                                                 >
-                                                                                    <option value="">
-                                                                                        select</option>
-                                                                                    <option
-                                                                                        value="Household head"
-                                                                                    >Household
-                                                                                        head</option>
-                                                                                    <option value="Spouse">
-                                                                                        Spouse</option>
-                                                                                    <option
-                                                                                        value="Member/dependent"
+                                                                                    <t
+                                                                                        t-foreach="request.env['g2p.relationship'].sudo().search([])"
+                                                                                        t-as="option"
                                                                                     >
-                                                                                        Member/dependent</option>
+                                                                                        <option
+                                                                                            t-att-value="option.name"
+                                                                                            t-att-selected="option.name"
+                                                                                        >
+                                                                                                <t
+                                                                                                t-out="option.name"
+                                                                                            />
+                                                                                            </option>
+                                                                                        </t>
+                                                                                        <t
+                                                                                        t-log="beneficiary.related_1_ids"
+                                                                                    />
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -1194,18 +1198,14 @@
                                                                                     name="relationship"
                                                                                     class="form-select"
                                                                                 >
-                                                                                    <option value="">
-                                                                                        select</option>
-                                                                                    <option
-                                                                                        value="Household head"
-                                                                                    >Household
-                                                                                        head</option>
-                                                                                    <option value="Spouse">
-                                                                                        Spouse</option>
-                                                                                    <option
-                                                                                        value="Member/dependent"
+                                                                                    <t
+                                                                                        t-foreach="request.env['g2p.relationship'].sudo().search([])"
+                                                                                        t-as="option"
                                                                                     >
-                                                                                        Member/dependent</option>
+                  <option t-att-value="option.name">
+                      <t t-out="option.name" />
+                  </option>
+              </t>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
@@ -1258,7 +1258,7 @@
                                                 <button
                                                     type="button"
                                                     class="btn btn-outline-primary"
-                                                    onclick="location.href = '/selfservice/home';"
+                                                    onclick="location.href = '/serviceprovider/home';"
                                                 >
                                                     Cancel
                                                 </button>
