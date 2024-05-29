@@ -14,7 +14,7 @@ function validateForm(isCreateForm) {
 
     requiredFields.forEach(function (field) {
         var existingErrorMessage = field.parentNode.querySelector(".error-message");
-        if (!field.value.trim() && field.offsetWidth > 0 && field.offsetHeight > 0) {
+        if (!field.value.trim()) {
             var errorMessage = document.createElement("span");
             errorMessage.className = "error-message";
             errorMessage.textContent = "This field is required";
@@ -28,6 +28,13 @@ function validateForm(isCreateForm) {
 
             field.style.border = "1px solid red";
             isValid = false;
+            const collapseElement = field.closest(".collapse");
+            if (collapseElement) {
+                const accordionButton = document.querySelector(`[data-bs-target="#${collapseElement.id}"]`);
+                if (accordionButton) {
+                    accordionButton.click();
+                }
+            }
         } else {
             if (existingErrorMessage) {
                 existingErrorMessage.parentNode.removeChild(existingErrorMessage);
