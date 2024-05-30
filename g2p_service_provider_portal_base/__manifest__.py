@@ -17,6 +17,7 @@
         "views/profile.xml",
         "views/other.xml",
         "views/menu_view.xml",
+        "views/service_provider_extend_view.xml",
     ],
     "assets": {
         "web.assets_frontend": [],
