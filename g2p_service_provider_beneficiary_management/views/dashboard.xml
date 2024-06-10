@@ -15,7 +15,7 @@
 							<a href="/serviceprovider/group">
 								<li>
 									<div class="icon-image">
-										<img src="/g2p_self_service_portal/static/src/img/person_filled_FILL0_wght400_GRAD0_opsz48.png" class="img" />
+										<img src="/g2p_service_provider_portal_base/static/src/img/person_filled_FILL0_wght400_GRAD0_opsz48.png" class="img" />
 									</div>
 									<div>
 										<a href="/serviceprovider/group">
@@ -36,7 +36,7 @@
 							<a href="/serviceprovider/individual">
 								<li>
 									<div class="icon-image">
-										<img src="/g2p_self_service_portal/static/src/img/person_filled_FILL0_wght400_GRAD0_opsz48.png" class="img" />
+										<img src="/g2p_service_provider_portal_base/static/src/img/person_filled_FILL0_wght400_GRAD0_opsz48.png" class="img" />
 									</div>
 									<div>
 										<a href="/serviceprovider/individual">
