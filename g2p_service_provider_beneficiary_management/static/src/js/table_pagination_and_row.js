@@ -4,6 +4,7 @@ const allRows = Array.from(alltable.querySelectorAll("tbody tr"));
 const tbody = alltable.getElementsByTagName("tbody");
 const totalRow = tbody[0].children.length;
 const itemsPerPage = 7;
+const maxVisiblePages = 5;
 let currentPage = 1;
 
 function addTableSrNo() {
@@ -15,9 +16,11 @@ function addTableSrNo() {
 addTableSrNo();
 let filteredRows = [];
 function showPage(page) {
+
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const rows = filteredRows.slice(startIndex, endIndex);
+
     // Hide all rows
     allRows.forEach((row) => (row.style.display = "none"));
     // Show rows for current page
@@ -55,31 +58,32 @@ function applySearchFilter(searchValue) {
     });
 }
 
+
 function renderPageButtons() {
     const totalPages = Math.ceil(filteredRows.length / itemsPerPage);
     const pageButtonsContainer = document.getElementById("page-buttons");
+  
+
     pageButtonsContainer.innerHTML = "";
 
     // Add previous page button
     const prevButton = document.createElement("button");
     prevButton.innerHTML = '<i class="fa fa-angle-left"></i>';
-
-    // Add next page button
-    const nextButton = document.createElement("button");
-    nextButton.innerHTML = '<i class="fa fa-angle-right"></i>';
-
-    // Angle bracket for left arrow
     prevButton.addEventListener("click", function () {
         if (currentPage > 1) {
             currentPage--;
             showPage(currentPage);
             updatePaginationButtons();
+            renderPageButtons(); // Ensure buttons are updated correctly
         }
     });
     pageButtonsContainer.appendChild(prevButton);
 
-    // Add page buttons
-    for (let i = 1; i <= totalPages; i++) {
+    // Add page buttons with limited visibility
+    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
         const button = document.createElement("button");
         button.textContent = i;
         if (i === currentPage) {
@@ -90,24 +94,29 @@ function renderPageButtons() {
             currentPage = i;
             showPage(currentPage);
             updatePaginationButtons();
+            renderPageButtons(); // Ensure buttons are updated correctly
         });
 
         pageButtonsContainer.appendChild(button);
     }
 
-    // Angular bracket for right arrow
+    // Add next page button
+    const nextButton = document.createElement("button");
+    nextButton.innerHTML = '<i class="fa fa-angle-right"></i>';
     nextButton.classList.add("next-button");
     nextButton.addEventListener("click", function () {
         if (currentPage < totalPages) {
             currentPage++;
             showPage(currentPage);
             updatePaginationButtons();
+            renderPageButtons(); // Ensure buttons are updated correctly
         }
     });
     pageButtonsContainer.appendChild(nextButton);
 
     updatePaginationButtons();
 }
+
 function compareCellValues(a, b, columnIndex) {
     const aCellValue = a.cells[columnIndex].textContent.trim().replace(/,/g, "");
     const bCellValue = b.cells[columnIndex].textContent.trim().replace(/,/g, "");
