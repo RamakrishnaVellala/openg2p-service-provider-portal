@@ -16,7 +16,6 @@ function addTableSrNo() {
 addTableSrNo();
 let filteredRows = [];
 function showPage(page) {
-
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const rows = filteredRows.slice(startIndex, endIndex);
@@ -58,11 +57,9 @@ function applySearchFilter(searchValue) {
     });
 }
 
-
 function renderPageButtons() {
     const totalPages = Math.ceil(filteredRows.length / itemsPerPage);
     const pageButtonsContainer = document.getElementById("page-buttons");
-  
 
     pageButtonsContainer.innerHTML = "";
 
@@ -74,7 +71,7 @@ function renderPageButtons() {
             currentPage--;
             showPage(currentPage);
             updatePaginationButtons();
-            renderPageButtons(); // Ensure buttons are updated correctly
+            renderPageButtons();
         }
     });
     pageButtonsContainer.appendChild(prevButton);
@@ -94,7 +91,7 @@ function renderPageButtons() {
             currentPage = i;
             showPage(currentPage);
             updatePaginationButtons();
-            renderPageButtons(); // Ensure buttons are updated correctly
+            renderPageButtons();
         });
 
         pageButtonsContainer.appendChild(button);
@@ -109,7 +106,7 @@ function renderPageButtons() {
             currentPage++;
             showPage(currentPage);
             updatePaginationButtons();
-            renderPageButtons(); // Ensure buttons are updated correctly
+            renderPageButtons();
         }
     });
     pageButtonsContainer.appendChild(nextButton);

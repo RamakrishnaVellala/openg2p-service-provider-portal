@@ -14,7 +14,8 @@ function validateForm(isCreateForm) {
 
     requiredFields.forEach(function (field) {
         var existingErrorMessage = field.parentNode.querySelector(".error-message");
-        if (!field.value.trim()) {
+        var fieldValue = field.value.trim();
+        if (fieldValue === "") {
             var errorMessage = document.createElement("span");
             errorMessage.className = "error-message";
             errorMessage.textContent = "This field is required";
