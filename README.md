@@ -25,8 +25,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[g2p_service_provider_beneficiary_management](g2p_service_provider_beneficiary_management/) | 17.0.1.2.0 |  | G2P Service Provider Beneficiary Management
-[g2p_service_provider_portal_base](g2p_service_provider_portal_base/) | 17.0.1.0.0 |  | G2P Service Provider Portal: Base
+[g2p_service_provider_portal_reimbursement](g2p_service_provider_portal_reimbursement/) | 17.0.1.0.0 |  | G2P Service Provider Portal: Reimbursement
 
 [//]: # (end addons)
 
